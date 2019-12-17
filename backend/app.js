@@ -1,20 +1,23 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-
+const logger = require('morgan');
 const Post = require('./models/post');
 
 const app = express();
 
+
+
+app.use(logger('dev'));
 app.use(bodyParser.json());
 
 app.post('/api/posts', (req, res, next) => {
     console.log("AAAAAAAAAAAAAAAAAAAAA");
     const post = new Post({
         title : req.body.title,
-        content : req.bosy.content
+        content : req.body.content
     });
     console.log(post);
-    res.status(201).json(posts);
+    res.status(201).json(post);
 });
 
 app.use((req, res, next) => {
@@ -31,14 +34,13 @@ app.use((req, res, next) => {
 });
 
 app.get("/api/posts", (req, res, next) => {
-  const posts = [
+  console.log("BBBBBBBBBBBBBBBBBB");
+  const posts  = [
     {
-      id: "fadf12421l",
       title: "First server-side post",
       content: "This is coming from the server"
     },
     {
-      id: "ksajflaj132",
       title: "Second server-side post",
       content: "This is coming from the server!"
     }
